@@ -1,2 +1,2 @@
 # dancingGalaxies
-Animating galactic simulations &amp; stuff...
+dear *god* what have we gotten ourselves into
