@@ -1,3 +1,2 @@
 # dancingGalaxies
-dear *god* what have we gotten ourselves into?
-\n IDK. What I do know is, GitHub does not like me... - KC
+Added some templates
