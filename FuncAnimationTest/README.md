@@ -1,7 +1,7 @@
 ### FuncAnimation Stuff
 
 Don't worry about the tests folder, nothing there is of any interest as it was just some experiments.
-main.py in the functional dir is where all the good stuff is. Very limited capability at the moment but
+main.py & main_w_text.py in the functional dir is where all the good stuff is. Very limited capability at the moment but
 hey... we gotta start from somewhere.
 
 FuncAnimation might be the way to go in terms of expanding this project. In general it seems to be 

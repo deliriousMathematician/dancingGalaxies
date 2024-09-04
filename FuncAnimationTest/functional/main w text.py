@@ -1,5 +1,4 @@
 # in its current state, this simply shows the density heatmap of the galaxy's midplane at various heights above the origin
-# going to add text at the bottom right of the plot to indicate height above midplane for each frame
 # note that to write the file to disk you need to install ffmpeg from https://ffmpeg.org/ and link the .exe
 
 # imports
@@ -23,8 +22,10 @@ pyn.analysis.angmom.faceon(h)
 # creating figure & axes
 fig, ax = plt.subplots()
 
+# defining starting plot
 galaxy = pyn.plot.sph.image(h.g, width=16, qty='rho', subplot=ax, cmap=plt.cm.turbo, vmin=vmin, vmax=vmax,
                             title=r'$\rho \text{ at various } z \text{/kpc above midplane}$')
+fig.text(0.75, 0.05, f'z = {z:.2f} kpc', transform=ax.transAxes)    # display starting height
 
 def shift(height):  # shifts the z component height, and adds to the counter
     global z
@@ -36,14 +37,20 @@ def update(frame):  # updates animation
     global galaxy
     shift(z_shift)
     galaxy = pyn.plot.sph.image(h.g, width=16, qty='rho', subplot=ax, cmap=plt.cm.turbo, vmin=vmin, vmax=vmax, ret_im=True)
+    del fig.texts[0]    # delete previous height
+    fig.text(0.75, 0.05, f'z = {z:.2f} kpc', transform=ax.transAxes)    # update displayed height
     return galaxy
 
 # animation object
-ani = animation.FuncAnimation(fig=fig, func=update, frames=25, interval=int)
+ani = animation.FuncAnimation(fig=fig, func=update, frames=25, interval=int, repeat=False)
 
-plt.show()
+# plt.show()
 
 # writing to disk using ffmpeg
-# matplotlib.rcParams['animation.ffmpeg_path'] = 'C:\\Users\\Michael\\Documents\\python\\ffmpeg\\bin\\ffmpeg.exe'  # change path as needed
-# writer = animation.FFMpegWriter(fps=5, bitrate=-1)  # -1 automatically assigned the best bit rate
-# ani.save('animations/myanimation.mp4', writer=writer)
+matplotlib.rcParams['animation.ffmpeg_path'] = 'C:\\Users\\Michael\\Documents\\python\\ffmpeg\\bin\\ffmpeg.exe'  # change path as needed
+writer = animation.FFMpegWriter(fps=5, bitrate=-1)  # -1 automatically assigned the best bit rate; fps increases/decreases playback speed
+ani.save('animations/myanimation2.mp4', writer=writer)
+
+# known issues
+# not displaying first 2 iterations?
+# output .mp4 is a bit buggy

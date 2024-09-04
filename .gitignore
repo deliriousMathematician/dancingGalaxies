@@ -161,9 +161,12 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 .idea/
 
-desktop.ini
+# Simulation Files
 run708main.01000
 run708mainDiff.01000
 run708main.param
 run708mainDiff.param
+
+# Michael
 pycharm (local)
+desktop.ini
