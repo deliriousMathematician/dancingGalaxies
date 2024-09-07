@@ -7,4 +7,4 @@ Tester temp 1 is the one i used to get that gif i showed you (again, not at all 
 
 4/9/24 - Added FuncAnimationTest
 
-7/9/24 - Modified imageio test to add the duration of frames to gif; Pull request to add a new version, with slight modifications, of FunAnimationTest
+7/9/24 - Modified imageio test to add the duration of frames to gif; Will also create a Pull request to add a new version, with slight modifications, of FunAnimationTest - KC
