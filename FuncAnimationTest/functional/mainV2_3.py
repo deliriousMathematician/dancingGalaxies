@@ -1,3 +1,5 @@
+## To add user interface equipped with error handling directly.
+
 # Imports
 import pynbody as pyn
 import matplotlib.pyplot as plt
@@ -18,6 +20,10 @@ z = 0
 frames = int(z_max / z_shift)
 
 # Loading simulation, converting units, and aligning face-on
+
+# run708main.01000
+sim = input("Enter the simulation file: ")
+
 try:
     h = pyn.load('simFiles\\run708main.01000')
 except FileNotFoundError:
@@ -87,7 +93,8 @@ def update(frame):
 ani = animation.FuncAnimation(fig, func=update, frames=frames, interval=interval, repeat=False)
 
 # Writing to disk using ffmpeg
-ffmpeg_path = 'C:\\Users\\Michael\\Documents\\python\\ffmpeg\\bin\\ffmpeg.exe'
+# 'C:\\Users\\User\\...\\ffmpeg_folder\\bin\\ffmpeg.exe'
+ffmpeg_path = input("Enter the ffmeg file path: ")
 if not os.path.exists(ffmpeg_path):
     raise FileNotFoundError("FFmpeg not found. Check your ffmpeg installation path.")
 
