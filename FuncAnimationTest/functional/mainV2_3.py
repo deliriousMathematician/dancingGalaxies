@@ -25,7 +25,7 @@ frames = int(z_max / z_shift)
 sim = input("Enter the simulation file: ")
 
 try:
-    h = pyn.load('simFiles\\run708main.01000')
+    h = pyn.load(sim)
 except FileNotFoundError:
     raise FileNotFoundError("Simulation file not found. Check your file path.")
 h.physical_units()
