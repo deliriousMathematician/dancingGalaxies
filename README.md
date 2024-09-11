@@ -8,3 +8,5 @@ Tester temp 1 is the one i used to get that gif i showed you (again, not at all 
 4/9/24 - Added FuncAnimationTest
 
 7/9/24 - Modified imageio test to add the duration of frames to gif; Will also create a Pull request to add a new version, with slight modifications, of FunAnimationTest (side note, this method seems to now not work with spyder or the terminal, so I'm working a bit blind) - KC
+
+11/9/24 - Merged Pull Requests to Main -M
