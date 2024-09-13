@@ -12,7 +12,7 @@ z_shift = 0.01  # Distance (kpc) to be shifted per frame [avoid values <= 0.001]
 z_max = 0.25  # Maximum z-distance to cover in the animation (kpc)
 interval = 250  # Time (ms) between frames
 z = 0
-width = 16  # x and y plot range
+width = 16  # x and y range
 cmap = plt.cm.turbo # colormap
 
 # Calculating the number of frames dynamically
