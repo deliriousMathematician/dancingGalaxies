@@ -9,6 +9,8 @@ Last Updated: 13/09/2024
 #   - Create functionality to choose what to plot, or at least dictate how one can change the code to do so and generally create/refine the User Interface
 #   - Add comments as necessary.
 #   - Test for issues and resolve as possible. (See at the end for a list thereof)
+#   - Add width and cmap to user interface
+#   - Remove z from user interface (we don't have functionality to adjust starting z at the moment. It's only current use is the counter on the plot)
 #   - ...
 
 # --------------------------------------------------------------------------------------------------------------------------------------------------------- #
@@ -33,8 +35,8 @@ import os
 # z_max = 0.25  # Maximum z-distance to cover in the animation (kpc)
 # interval = 250  # Time (ms) between frames
 # z = 0
-# width = 16  # x-y span
-# cmap = plt.cm.turbo # colormap
+width = 16  # x-y span
+cmap = plt.cm.turbo # colormap
 
 # Function to encapsulate the user inputs (each wrapped in a while loop so program doesn't need to be restarted in case of mistake.).
 # Refine further as you please... (should probably change the names of variables inside and outside, or find how to refine this to reduce redundancy, via the use of global)
@@ -96,20 +98,20 @@ def get_user_inputs():
         
         except ValueError as e:
             print(f"Invalid input for interval: {e}. Please try again.")
-    
-    # colorbar (adjusted so it is not case or space sensitive)
+
+    # colorbar (adjusted so that it is not case or space sensitive)
     while True:
-        
+
         colorbar_input = input("\nToggle the colorbar on/off (Enter True/False): ").strip().lower()
-        
+
         if colorbar_input == 'true':
             colorbar = True
             break
-        
+
         elif colorbar_input == 'false':
             colorbar = False
             break
-        
+
         else:
             print("Invalid input for the colorbar. Must be either 'True' or 'False'. Please try again.")
     
@@ -164,7 +166,8 @@ fig, ax = plt.subplots()
 galaxy = pyn.plot.sph.image(h.g, width=width, qty='rho', vmin=vmin, vmax=vmax, cmap=cmap, subplot=ax, ret_im=True)
 
 # Customizing Plot
-cBar = fig.colorbar(galaxy, ax=ax, label="cbar")
+if colorbar:
+    cBar = fig.colorbar(galaxy, ax=ax, label="cbar")
 title = ax.set_title("test")
 xLabel = ax.set_xlabel("x/kpc")
 yLabel = ax.set_ylabel("y/kpc")
