@@ -146,6 +146,7 @@ frames = int(z_max / z_shift)
 # Loading the simulation, converting units to logical ones, and aligning  the galaxy face-on.
 
 # run708main.01000 as default tester
+
 sim = input("Enter the simulation file: ")
 
 try:
@@ -154,6 +155,7 @@ except FileNotFoundError:
     raise FileNotFoundError("Simulation file not found. Check your file path.")
 h.physical_units()
 pyn.analysis.angmom.faceon(h)
+
 
 # Creating the figure & axes.
 fig, ax = plt.subplots()
