@@ -12,3 +12,5 @@
 
 13/9/24 - Started on the input based UI - K <br>
           Wiped repo for better organisation and combined all branches (adjusted for compatability) for fresh start -M
+
+15/09/24 - Moved on to working on V1.3.0 with added comments and functions to make the code more versatile for future implementation of a menu style choice of what to plot - K
