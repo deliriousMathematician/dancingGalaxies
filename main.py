@@ -7,8 +7,9 @@ Last Updated: 13/09/2024
 # To Do;
 
 #   - Create functionality to choose what to plot, or at least dictate how one can change the code to do so and generally create/refine the User Interface
+#        - Make a menu of sorts with a set of interlinked options, go according to different axes, different types of renders and images, etc...
 #   - Add comments as necessary.
-#   - Test for issues and resolve as possible. (See at the end for a list thereof)
+#   - Test for issues and resolve as possible. (Add/See at the end for a list thereof)
 #   - Add width and cmap to user interface
 #   - Remove z from user interface (we don't have functionality to adjust starting z at the moment. It's only current use is the counter on the plot)
 #   - ...
@@ -179,7 +180,6 @@ pText = fig.text(0.75, 0.05, f'z = {z:.2f} kpc', transform=ax.transAxes)
 
 # Animation Functions
 
-
 def shift_z(height):
 
     """Shift the galaxy slice in the z direction."""
@@ -227,6 +227,6 @@ ani.save('animations/animation1.mp4', writer=writer)
 # Cleanup and closing plot to free memory
 plt.close(fig)
 
-# Known issues:
-# - Must ensure z_shift and z_max are appropriately chosen for your data
-# - Must check file paths for the simulation file and FFmpeg installation cause it...it pains me
+# Known limits:
+# - Starting for z = 0.02 despite being set as 0...
+# - Must ensure z_shift and z_max are appropriately chosen for your data...
