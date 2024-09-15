@@ -191,7 +191,7 @@ def shift_z(galaxy_data, height):
     Parameters:
         
         galaxy_data (object): Galaxy data containing the element positions.
-        z_shift (float): The amount to shift in the z direction.
+        height (float): The amount/height to shift in the z direction.
     
     Returns: 
         
