@@ -169,7 +169,9 @@ galaxy = pyn.plot.sph.image(h.g, width=width, qty='rho', vmin=vmin, vmax=vmax, c
 # Customizing Plot
 if colorbar:
     cBar = fig.colorbar(galaxy, ax=ax, label="cbar")
-title = ax.set_title("test")
+
+title_name = input("\nEnter the title of your plot/animation: ")
+title = ax.set_title(title_name)
 xLabel = ax.set_xlabel("x/kpc")
 yLabel = ax.set_ylabel("y/kpc")
 xLim = ax.set_xlim(-1 * width/2, width/2)
