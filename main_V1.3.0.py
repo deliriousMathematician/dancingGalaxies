@@ -11,8 +11,8 @@ Last Updated: 15/09/2024 by KC
 #   - Add comments as necessary.
 #   - Test for issues and resolve as possible. (Add/See at the end for a list thereof)
 #   - Add width and cmap to user interface
-#   - Remove z from user interface (we don't have functionality to adjust starting z at the moment. It's only current use is the counter on the plot)
-#   - ...
+#   - Remove z from user interface (we don't have the functionality to adjust starting z at the moment. Its only current use is the counter on the plot)
+#   - ... Ideally we should change parameter names to be different from those outside of the given function, for now, I left a lot regardless to serve as an easier transition from using them in global form and not confuse each other.
 
 # --------------------------------------------------------------------------------------------------------------------------------------------------------- #
 
