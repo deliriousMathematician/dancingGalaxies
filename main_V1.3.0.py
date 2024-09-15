@@ -182,7 +182,7 @@ pText = fig.text(0.75, 0.05, f'z = {z:.2f} kpc', transform=ax.transAxes)
 
 # Animation Functions
 
-def shift_z(galaxy_data, z_shift):
+def shift_z(galaxy_data, height):
     
     """
     
@@ -199,7 +199,7 @@ def shift_z(galaxy_data, z_shift):
         
     """
     
-    galaxy_data['pos'][:, 2] -= z_shift
+    galaxy_data['pos'][:, 2] -= height
     
     return None
 
