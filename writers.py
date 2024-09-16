@@ -37,7 +37,7 @@ def save_ffmpeg(ani, ffmpeg_path, write_path, fps=5, bitrate=-1, dpi=200, **kwar
 
     # Set ffmpeg_path as source
     matplotlib.rcParams['animation.ffmpeg_path'] = ffmpeg_path
-    writer = animation.FFMpegWriter(fps=fps, bitrate=bitrate)  # -1 for automatic best bitrate
+    writer = animation.FFMpegWriter(fps=fps, bitrate=bitrate)
 
     # Writing to path
     ani.save(write_path, writer=writer, dpi=dpi, **kwargs)

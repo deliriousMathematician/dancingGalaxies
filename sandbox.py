@@ -1,6 +1,5 @@
 # To Do:
 #   - Automatically determine vmin and vmax unless specified otherwise
-#   - ffmpeg saving animations poorly (start of .mp4 does not play)
 #   - Rendering with time and other quantities
 #   - Adjust starting zPos
 #   - Allow the position of the pText to be changed
@@ -9,6 +8,7 @@
 
 # Bug Fixes:
 #   - Animation now starts at 0.00 kpc
+#   - FFmpeg saving animation properly, issue was with windows media player - use vlc
 #   - ...
 
 # Done:
