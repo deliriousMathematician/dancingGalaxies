@@ -1,5 +1,4 @@
 # To Do:
-#   - Automatically determine vmin and vmax unless specified otherwise
 #   - Rendering with time and other quantities
 #   - Adjust starting zPos
 #   - Allow the position of the pText to be changed
@@ -15,6 +14,7 @@
 #   - sideOn/faceOn view to be set by user before running function
 #   - Much higher resolution thanks to adjustable dpi
 #   - Defined both renderer and writer functions to handle animating
+#   - Automatically determine vmin and vmax unless specified otherwise
 #   - ...
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -33,7 +33,7 @@ h = pyn.load(simu)
 h.physical_units()
 pyn.analysis.angmom.faceon(h)
 
-ani = z_span(h.g, qty="rho")
+ani = z_span(h.g, qty="rho", vmin=10**5)
 
 ffmpeg_path = "C:\\Users\\Michael\\Documents\\python\\ffmpeg\\bin\\ffmpeg.exe"
 write_path = "animations/functions.mp4"

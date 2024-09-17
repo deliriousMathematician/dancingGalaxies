@@ -18,7 +18,7 @@ pyn.analysis.angmom.faceon(h)
 # z_rend == z render
 # **kwargs for FuncAnimation
 
-def z_span(sim, qty="rho", width=16, z_shift=0.01, z_max=0.25, z_rend=True, vmin=10**5, vmax=10**10, qtytitle=None,
+def z_span(sim, qty="rho", width=16, z_shift=0.01, z_max=0.25, z_rend=True, vmin=None, vmax=None, qtytitle=None,
            show_cbar=True, cmap=plt.cm.turbo, title=None, interval=250, **kwargs):
     """
 
@@ -41,10 +41,10 @@ def z_span(sim, qty="rho", width=16, z_shift=0.01, z_max=0.25, z_rend=True, vmin
 
     *z_rend* (True): Whether the animation renders the current z-position.
 
-    *vmin* (10**5 units): Minimum of the visualization scale.
+    *vmin* (None): Minimum of the visualization scale. 'None' will choose appropriate value automatically.
     Units are determined by ``sim['qty']``.
 
-    *vmax* (10**10 units): Maximum of the visualization scale.
+    *vmax* (None): Maximum of the visualization scale. 'None' will choose appropriate value automatically.
     Units are determined by ``sim['qty']``.
 
     *qtytitle* (None): Colorbar quantity title.
@@ -97,6 +97,10 @@ def z_span(sim, qty="rho", width=16, z_shift=0.01, z_max=0.25, z_rend=True, vmin
     # plotText
     if z_rend:
         ptext = fig.text(0.75, 0.05, f'z = {z:.2f} {sim["pos"].units}', transform=ax.transAxes)
+
+    # Setting constant vmin/vmax values to be used for animation
+    if (vmin is None) or (vmax is None):
+        vmin, vmax = galaxy.get_clim()
 
     # Defining Update Function
     def update(frame):
