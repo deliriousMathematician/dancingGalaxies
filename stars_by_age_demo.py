@@ -1,4 +1,4 @@
-# Function to seperate stars by age.
+# Example of a function to separate the stars of a supplied simulation by their age under the set ranges.
 # This should be relatively easily modifiable into something more general as needed.
 def star_ages (sim):
     
