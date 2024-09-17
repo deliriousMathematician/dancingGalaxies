@@ -3,6 +3,7 @@
 #   - Adjust starting zPos
 #   - Allow the position of the pText to be changed
 #   - Allow custom Fig size to be chosen
+#   - Figure out what to do with nullspace [ex: when plotting star age but no stars exist in the region]
 #   - ...
 
 # Bug Fixes:
@@ -33,9 +34,11 @@ h = pyn.load(simu)
 h.physical_units()
 pyn.analysis.angmom.faceon(h)
 
-ani = z_span(h.g, qty="rho", vmin=10**5)
+h.s['age'].convert_units('Gyr')
+
+ani = z_span(h.s, qty="age", vmin=0.1, vmax=10, qtytitle="age (Gyr)", title='Star Age at various z')
 
 ffmpeg_path = "C:\\Users\\Michael\\Documents\\python\\ffmpeg\\bin\\ffmpeg.exe"
-write_path = "animations/functions.mp4"
+write_path = "animations/star_age.mp4"
 
 save_ffmpeg(ani, ffmpeg_path, write_path)
