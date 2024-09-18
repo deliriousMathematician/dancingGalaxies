@@ -45,7 +45,7 @@ def z_span(sim, qty="rho", width=16, z_shift=0.01, z_max=0.25, z_rend=True, vmin
 
     *figsize* (None): Size of the figure on which the plot is rendered. 'None' will choose appropriate value automatically.
 
-    *ptext_pos* (0.65, 0.05): Position of ptext in transAxes .
+    *ptext_pos* (0.65, 0.05): Position of ptext in transAxes coords.
 
     **Returns:** Animation Object
     """
