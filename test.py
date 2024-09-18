@@ -6,7 +6,7 @@
 # Still to do:
 # Deal with negative z_shift, z_start, and z_max values
 # Test
-# Calculate vmin and vmax when at z=0
+# Calculate vmin and vmax when at z=0 otherwise we will get less accurate colourmap range
 
 import pynbody as pyn
 import matplotlib.pyplot as plt
