@@ -1,16 +1,6 @@
 import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
-import os
-
-# ----------------------------------------------------------------------------------------------------------------------
-# user data [REMOVE]
-ffmpeg_path = "C:\\Users\\Michael\\Documents\\python\\ffmpeg\\bin\\ffmpeg.exe"
-write_path = "animations/mBranch.mp4"
-# ----------------------------------------------------------------------------------------------------------------------
-
-# **kwargs for ani.save
-
 
 def save_ffmpeg(ani, ffmpeg_path, write_path, fps=5, bitrate=-1, dpi=200, **kwargs):
     """

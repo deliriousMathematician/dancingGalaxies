@@ -3,23 +3,8 @@ import pynbody as pyn
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
-# ----------------------------------------------------------------------------------------------------------------------
-# user data [REMOVE]
-# Loading Simulation
-simu = "simFiles/run708main.01000"
-h = pyn.load(simu)
-
-# Converting units and aligning face-on
-h.physical_units()
-pyn.analysis.angmom.faceon(h)
-# ----------------------------------------------------------------------------------------------------------------------
-
-# units are defined beforehand
-# z_rend == z render
-# **kwargs for FuncAnimation
-
 def z_span(sim, qty="rho", width=16, z_shift=0.01, z_max=0.25, z_rend=True, vmin=None, vmax=None, qtytitle=None,
-           show_cbar=True, cmap=plt.cm.turbo, title=None, interval=250, **kwargs):
+           show_cbar=True, cmap=plt.cm.turbo, title=None, interval=250, figsize=None, ptext_pos=(0.65, 0.05), **kwargs):
     """
 
     Animate SPH images of the given simulation as it varies in the z-axis.
@@ -39,7 +24,7 @@ def z_span(sim, qty="rho", width=16, z_shift=0.01, z_max=0.25, z_rend=True, vmin
     *z_max* (0.25 units): Maximum z-distance to cover in the animation.
     Units are determined by ``sim['pos']``.
 
-    *z_rend* (True): Whether the animation renders the current z-position.
+    *z_rend* (True): Whether the animation renders the current z-position text.
 
     *vmin* (None): Minimum of the visualization scale. 'None' will choose appropriate value automatically.
     Units are determined by ``sim['qty']``.
@@ -58,6 +43,10 @@ def z_span(sim, qty="rho", width=16, z_shift=0.01, z_max=0.25, z_rend=True, vmin
     *interval* (250 ms): Amount of time between the drawing of frames.
     Does not affect playback speed of animation.
 
+    *figsize* (None): Size of the figure on which the plot is rendered. 'None' will choose appropriate value automatically.
+
+    *ptext_pos* (0.65, 0.05): Position of ptext in transAxes .
+
     **Returns:** Animation Object
     """
 
@@ -68,7 +57,10 @@ def z_span(sim, qty="rho", width=16, z_shift=0.01, z_max=0.25, z_rend=True, vmin
     frames = int(z_max / z_shift) + 1  # +1 to account for frame 0
 
     # Creating Figure and Axes
-    fig, ax = plt.subplots()
+    if figsize is None:
+        fig, ax = plt.subplots()
+    else:
+        fig, ax = plt.subplots(figsize=figsize)
 
     # Starting Plot
     galaxy = pyn.plot.sph.image(sim, width=width, qty=qty, vmin=vmin, vmax=vmax, cmap=cmap, subplot=ax, ret_im=True)
@@ -95,8 +87,9 @@ def z_span(sim, qty="rho", width=16, z_shift=0.01, z_max=0.25, z_rend=True, vmin
     ylim = ax.set_ylim(-1 * width / 2, width / 2)
 
     # plotText
+    ptext_x, ptext_y = ptext_pos
     if z_rend:
-        ptext = fig.text(0.75, 0.05, f'z = {z:.2f} {sim["pos"].units}', transform=ax.transAxes)
+        ptext = fig.text(ptext_x, ptext_y, f'z = {z:.3f} {sim["pos"].units}', transform=ax.transAxes)
 
     # Setting constant vmin/vmax values to be used for animation
     if (vmin is None) or (vmax is None):
@@ -117,7 +110,7 @@ def z_span(sim, qty="rho", width=16, z_shift=0.01, z_max=0.25, z_rend=True, vmin
 
             # Updating plotText
             z += z_shift
-            ptext.set_text(f'z = {z:.2f} kpc')
+            ptext.set_text(f'z = {z:.3f} kpc')
 
             return galaxy
 

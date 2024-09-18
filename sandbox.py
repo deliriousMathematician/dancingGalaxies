@@ -1,8 +1,5 @@
 # To Do:
-#   - Rendering with time and other quantities
 #   - Adjust starting zPos
-#   - Allow the position of the pText to be changed
-#   - Allow custom Fig size to be chosen
 #   - Figure out what to do with nullspace [ex: when plotting star age but no stars exist in the region]
 #   - ...
 
@@ -16,6 +13,8 @@
 #   - Much higher resolution thanks to adjustable dpi
 #   - Defined both renderer and writer functions to handle animating
 #   - Automatically determine vmin and vmax unless specified otherwise
+#   - Allow custom Fig size to be chosen
+#   - Allow the position of the pText to be changed
 #   - ...
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -32,13 +31,17 @@ h = pyn.load(simu)
 
 # Converting units and aligning face-on
 h.physical_units()
+h.s['age'].convert_units('Gyr')
 pyn.analysis.angmom.faceon(h)
 
-h.s['age'].convert_units('Gyr')
+# Example 1
+ani = z_span(h.g, qty="rho", title="Rho at vartious z")
+# Example 2
+# ani = z_span(h.s, qty="age", z_shift=0.005, z_max=0.1, vmin=0.1, vmax=10, qtytitle="age (Gyr)", title='Star Age at various z', ptext_pos=(0.05, 0.05))
 
-ani = z_span(h.s, qty="age", vmin=0.1, vmax=10, qtytitle="age (Gyr)", title='Star Age at various z')
-
+# Specifying Required Paths
 ffmpeg_path = "C:\\Users\\Michael\\Documents\\python\\ffmpeg\\bin\\ffmpeg.exe"
-write_path = "animations/star_age.mp4"
+write_path = "animations\\Example.mp4"
 
+# Saving with ffmpeg
 save_ffmpeg(ani, ffmpeg_path, write_path)
