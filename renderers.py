@@ -116,7 +116,7 @@ def z_span(sim, qty="rho", width=16, z_shift=0.01, z_max=0.25, z_rend=True, vmin
             sim['pos'][:, 2] -= z_shift
 
            # Checking if there is data in the current frame's slice
-            if len(sim[qty]) == 0:  # Check if there's no data at the current z-slice
+            if len(sim[qty]) == 0:  # TO BE FIXED
                 # No data in this slice, display a placeholder message
                 ax.clear()
                 ax.text(0.5, 0.5, 'No data at this z-layer', horizontalalignment='center', verticalalignment='center', fontsize=12)
@@ -134,7 +134,7 @@ def z_span(sim, qty="rho", width=16, z_shift=0.01, z_max=0.25, z_rend=True, vmin
             # Checking for empty elements in the current slice (e.g., NaN or zero values)
             # If you want to skip rendering specific empty regions, we'll replace them with a placeholder value, which is what pynbody is doing from what I gather.
             # For example, setting NaN values to 0 and or skipping them visually.
-
+           # TO BE MODIFIED FURTHER
             empty_mask = np.isnan(img_data) | (img_data == 0)
             if np.any(empty_mask):
                        
