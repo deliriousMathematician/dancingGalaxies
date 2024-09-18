@@ -50,7 +50,18 @@ def z_span(sim, qty="rho", width=16, z_shift=0.01, z_max=0.25, z_rend=True, vmin
     **Returns:** Animation Object
     """
 
-    # defining z [TO BE MADE ADJUSTABLE]
+    # Checking if the dataset is empty in of itself (e.g., no stars or gas in the region) 
+    # (For the extreme case of total absence of data.)
+    if len(sim[qty]) == 0:
+        print(f"No data available for quantity '{qty}' in the selected region.")
+        plt.figure()
+        plt.text(0.5, 0.5, 'No data in this region', horizontalalignment='center', verticalalignment='center', fontsize=12)
+        plt.xlim(0, 1)
+        plt.ylim(0, 1)
+        plt.show()
+        return None
+                      
+    # defining the initial z [TO BE MADE ADJUSTABLE]
     z = 0
 
     # Calculating the number of frames dynamically
@@ -104,10 +115,37 @@ def z_span(sim, qty="rho", width=16, z_shift=0.01, z_max=0.25, z_rend=True, vmin
             # shifting z-position of all particles
             sim['pos'][:, 2] -= z_shift
 
-            # Plotting Next Frame
+           # Checking if there is data in the current frame's slice
+            if len(sim[qty]) == 0:  # Check if there's no data at the current z-slice
+                # No data in this slice, display a placeholder message
+                ax.clear()
+                ax.text(0.5, 0.5, 'No data at this z-layer', horizontalalignment='center', verticalalignment='center', fontsize=12)
+                ax.set_xlim(-1 * width / 2, width / 2)
+                ax.set_ylim(-1 * width / 2, width / 2)
+                return ax
+                   
+            # Plotting the Next Frame
             galaxy.remove()  # Clear the imshow artist to avoid overlapping images
             galaxy = pyn.plot.sph.image(sim, width=width, qty=qty, vmin=vmin, vmax=vmax, cmap=cmap, subplot=ax, ret_im=True)
 
+           # Converting the current frame image into a NumPy array for pixel inspection because yes.
+            img_data = galaxy.get_array()
+
+            # Checking for empty elements in the current slice (e.g., NaN or zero values)
+            # If you want to skip rendering specific empty regions, we'll replace them with a placeholder value, which is what pynbody is doing from what I gather.
+            # For example, setting NaN values to 0 and or skipping them visually.
+
+            empty_mask = np.isnan(img_data) | (img_data == 0)
+            if np.any(empty_mask):
+                       
+                # Option 1: Replace empty values with some default (like 0)
+                img_data[empty_mask] = 0  # Pretty sure this is what pynbody does. This may break everything. Test with caution.
+
+                # Option 2: Skip rendering those elements (no action needed, just handle it visually). Again, I don't know if this does much.
+
+                # Update the plot with modified data
+                galaxy.set_array(img_data)
+                   
             # Updating plotText
             z += z_shift
             ptext.set_text(f'z = {z:.3f} kpc')
