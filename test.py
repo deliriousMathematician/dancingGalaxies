@@ -6,10 +6,12 @@
 # Still to do:
 # Deal with negative z_shift, z_start, and z_max values
 # Test
+# Calculate vmin and vmax when at z=0
 
 import pynbody as pyn
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
+from writers import save_ffmpeg
 
 sim = pyn.load('simFiles/run708main.01000')
 pyn.analysis.angmom.faceon(sim)
@@ -89,3 +91,10 @@ def z_span(sim, qty="rho", width=16, z_start=0, z_shift=0.01, z_max=0.25, z_rend
     ani = animation.FuncAnimation(fig, func=update, frames=frames, interval=interval, **kwargs)
 
     return ani
+
+ani = z_span(sim.g, qty="rho", z_start = -0.1, z_shift=0.01, title="Rho at various z")
+
+ffmpeg_path = "C:\\Users\\Michael\\Documents\\python\\ffmpeg\\bin\\ffmpeg.exe"
+write_path = "animations\\test.mp4"
+
+save_ffmpeg(ani, ffmpeg_path, write_path, fps=25)
