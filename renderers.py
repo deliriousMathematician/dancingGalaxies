@@ -3,7 +3,7 @@ import pynbody as pyn
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
-def z_span(sim, qty="rho", width=16, z_shift=0.01, z_max=0.25, z_rend=True, vmin=None, vmax=None, qtytitle=None,
+def z_span(sim, qty="rho", width=16, z_start=0, z_shift=0.01, z_max=0.25, z_rend=True, vmin=None, vmax=None, qtytitle=None,
            show_cbar=True, cmap=plt.cm.turbo, title=None, interval=250, figsize=None, ptext_pos=(0.65, 0.05), **kwargs):
     """
 
@@ -16,6 +16,9 @@ def z_span(sim, qty="rho", width=16, z_shift=0.01, z_max=0.25, z_rend=True, vmin
     *qty* (rho): The name of the array to interpolate
 
     *width* (16 units): The overall width and height of the plot.
+    Units are determined by ``sim['pos']``.
+
+    *z_start* (0): The starting z-position of the animation.
     Units are determined by ``sim['pos']``.
 
     *z_shift* (0.01 units): The amount to shift in the z-direction per frame.
@@ -50,17 +53,26 @@ def z_span(sim, qty="rho", width=16, z_shift=0.01, z_max=0.25, z_rend=True, vmin
     **Returns:** Animation Object
     """
 
-    # defining z [TO BE MADE ADJUSTABLE]
-    z = 0
-
     # Calculating the number of frames dynamically
-    frames = int(z_max / z_shift) + 1  # +1 to account for frame 0
+    frames = int((z_max - z_start) / z_shift) + 1  # +1 to account for frame 0
 
     # Creating Figure and Axes
     if figsize is None:
         fig, ax = plt.subplots()
     else:
         fig, ax = plt.subplots(figsize=figsize)
+
+    # Setting constant vmin/vmax values to be used for animation
+    if (vmin is None) or (vmax is None):
+        galaxy = pyn.plot.sph.image(sim, width=width, qty=qty, vmin=vmin, vmax=vmax, cmap=cmap, subplot=ax, ret_im=True)
+        vmin, vmax = galaxy.get_clim()
+        galaxy.remove()  # Clearing imshow artist
+
+    # Adjusting starting z
+    if z_start != 0:
+        sim['pos'][:, 2] -= z_start
+
+    z = z_start  # Defining z for pText
 
     # Starting Plot
     galaxy = pyn.plot.sph.image(sim, width=width, qty=qty, vmin=vmin, vmax=vmax, cmap=cmap, subplot=ax, ret_im=True)
@@ -91,10 +103,6 @@ def z_span(sim, qty="rho", width=16, z_shift=0.01, z_max=0.25, z_rend=True, vmin
     if z_rend:
         ptext = fig.text(ptext_x, ptext_y, f'z = {z:.3f} {sim["pos"].units}', transform=ax.transAxes)
 
-    # Setting constant vmin/vmax values to be used for animation
-    if (vmin is None) or (vmax is None):
-        vmin, vmax = galaxy.get_clim()
-
     # Defining Update Function
     def update(frame):
         nonlocal galaxy, z
@@ -106,7 +114,8 @@ def z_span(sim, qty="rho", width=16, z_shift=0.01, z_max=0.25, z_rend=True, vmin
 
             # Plotting Next Frame
             galaxy.remove()  # Clear the imshow artist to avoid overlapping images
-            galaxy = pyn.plot.sph.image(sim, width=width, qty=qty, vmin=vmin, vmax=vmax, cmap=cmap, subplot=ax, ret_im=True)
+            galaxy = pyn.plot.sph.image(sim, width=width, qty=qty, vmin=vmin, vmax=vmax, cmap=cmap, subplot=ax,
+                                        ret_im=True)
 
             # Updating plotText
             z += z_shift
