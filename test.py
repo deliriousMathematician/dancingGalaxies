@@ -1,12 +1,10 @@
 #   - Adjust starting zPos
 
+# Done:
 # Added z_start variable which moves galactic position before starting simulation
 # Adjusted dynamic frames calculation to account for non-zero z_start
-
-# Still to do:
-# Deal with negative z_shift, z_start, and z_max values
-# Test
 # Calculate vmin and vmax when at z=0 otherwise we will get less accurate colourmap range
+# Deal with negative z_shift, z_start, and z_max values
 
 import pynbody as pyn
 import matplotlib.pyplot as plt
@@ -23,17 +21,23 @@ def z_span(sim, qty="rho", width=16, z_start=0, z_shift=0.01, z_max=0.25, z_rend
     # Calculating the number of frames dynamically
     frames = int((z_max - z_start) / z_shift) + 1  # +1 to account for frame 0
 
-    # Adjusting starting z
-    if z_start != 0:
-        sim['pos'][:, 2] -= z_start
-
-    z = z_start    # Defining z for pText
-
     # Creating Figure and Axes
     if figsize is None:
         fig, ax = plt.subplots()
     else:
         fig, ax = plt.subplots(figsize=figsize)
+
+    # Setting constant vmin/vmax values to be used for animation
+    if (vmin is None) or (vmax is None):
+        galaxy = pyn.plot.sph.image(sim, width=width, qty=qty, vmin=vmin, vmax=vmax, cmap=cmap, subplot=ax, ret_im=True)
+        vmin, vmax = galaxy.get_clim()
+        galaxy.remove()     # Clearing imshow artist
+
+    # Adjusting starting z
+    if z_start != 0:
+        sim['pos'][:, 2] -= z_start
+
+    z = z_start    # Defining z for pText
 
     # Starting Plot
     galaxy = pyn.plot.sph.image(sim, width=width, qty=qty, vmin=vmin, vmax=vmax, cmap=cmap, subplot=ax, ret_im=True)
@@ -64,10 +68,6 @@ def z_span(sim, qty="rho", width=16, z_start=0, z_shift=0.01, z_max=0.25, z_rend
     if z_rend:
         ptext = fig.text(ptext_x, ptext_y, f'z = {z:.3f} {sim["pos"].units}', transform=ax.transAxes)
 
-    # Setting constant vmin/vmax values to be used for animation
-    if (vmin is None) or (vmax is None):
-        vmin, vmax = galaxy.get_clim()
-
     # Defining Update Function
     def update(frame):
         nonlocal galaxy, z
@@ -92,9 +92,9 @@ def z_span(sim, qty="rho", width=16, z_start=0, z_shift=0.01, z_max=0.25, z_rend
 
     return ani
 
-ani = z_span(sim.g, qty="rho", z_start = -0.1, z_shift=0.01, title="Rho at various z")
+ani = z_span(sim.g, qty="rho", z_start = 0.1, z_shift=-0.01, z_max=-0.1, title="Rho at various z")
 
 ffmpeg_path = "C:\\Users\\Michael\\Documents\\python\\ffmpeg\\bin\\ffmpeg.exe"
 write_path = "animations\\test.mp4"
 
-save_ffmpeg(ani, ffmpeg_path, write_path, fps=25)
+save_ffmpeg(ani, ffmpeg_path, write_path, fps=10)
