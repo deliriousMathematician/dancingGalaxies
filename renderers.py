@@ -108,15 +108,24 @@ def z_span(sim, qty="rho", width=16, z_shift=0.01, z_max=0.25, z_rend=True, vmin
 
     # Defining Update Function
     def update(frame):
+               
         nonlocal galaxy, z
+               
         if frame == 0:  # if initial frame do not shift_z
             return galaxy
         else:
             # shifting z-position of all particles
             sim['pos'][:, 2] -= z_shift
 
+           # Define the z-range for this specific frame
+           z_min = z - z_shift / 2
+           z_max = z + z_shift / 2
+
+           # Filter the galaxy data for the current frame's z-layer
+           current_frame_data = sim['pos'][(sim['pos'][:, 2] >= z_min) & (sim['pos'][:, 2] < z_max)]
+
            # Checking if there is data in the current frame's slice
-            if len(sim[qty]) == 0:  # TO BE FIXED
+            if len(current_frame_data) == 0:
                 # No data in this slice, display a placeholder message
                 ax.clear()
                 ax.text(0.5, 0.5, 'No data at this z-layer', horizontalalignment='center', verticalalignment='center', fontsize=12)
@@ -128,14 +137,14 @@ def z_span(sim, qty="rho", width=16, z_shift=0.01, z_max=0.25, z_rend=True, vmin
             galaxy.remove()  # Clear the imshow artist to avoid overlapping images
             galaxy = pyn.plot.sph.image(sim, width=width, qty=qty, vmin=vmin, vmax=vmax, cmap=cmap, subplot=ax, ret_im=True)
 
-           # Converting the current frame image into a NumPy array for pixel inspection because yes.
+           # Converting the current frame image into a NumPy array for pixel inspection to do an image data check specifcally.
             img_data = galaxy.get_array()
 
             # Checking for empty elements in the current slice (e.g., NaN or zero values)
             # If you want to skip rendering specific empty regions, we'll replace them with a placeholder value, which is what pynbody is doing from what I gather.
             # For example, setting NaN values to 0 and or skipping them visually.
-           # TO BE MODIFIED FURTHER
-            empty_mask = np.isnan(img_data) | (img_data == 0)
+           # MAY BE MODIFIED FURTHER
+            empty_mask = np.isnan(img_data) | (img_data == 0) # Identifies NaN and 0 pixels via a bit wise OR
             if np.any(empty_mask):
                        
                 # Option 1: Replace empty values with some default (like 0)
