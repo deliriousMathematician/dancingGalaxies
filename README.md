@@ -16,3 +16,6 @@
 15/09/24 - Moved on to working on V1.3.0 with added comments and functions to make the code more versatile for future implementation of a menu style choice of what to plot (feel free to readjust parameters with global but since we may want to modularise I went ahead with parameters for V1.3.0) - K
 
 16/09/24 - Created mBranch, structuring package and bug fixed -M
+
+18/09/24 - Branch
+19/09/24 - Project B.E.H.E.M.O.T.H. is a go
