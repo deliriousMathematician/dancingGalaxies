@@ -2,6 +2,7 @@
 import pynbody as pyn
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
+import numpy as np
 
 def z_span(sim, qty="rho", width=16, z_shift=0.01, z_max=0.25, z_rend=True, vmin=None, vmax=None, qtytitle=None,
            show_cbar=True, cmap=plt.cm.turbo, title=None, interval=250, figsize=None, ptext_pos=(0.65, 0.05), **kwargs):
@@ -117,14 +118,14 @@ def z_span(sim, qty="rho", width=16, z_shift=0.01, z_max=0.25, z_rend=True, vmin
             # shifting z-position of all particles
             sim['pos'][:, 2] -= z_shift
 
-           # Define the z-range for this specific frame
-           z_min = z - z_shift / 2
-           z_max = z + z_shift / 2
+            # Define the z-range for this specific frame
+            z_min = z - z_shift / 2
+            z_max = z + z_shift / 2
 
-           # Filter the galaxy data for the current frame's z-layer
-           current_frame_data = sim['pos'][(sim['pos'][:, 2] >= z_min) & (sim['pos'][:, 2] < z_max)]
+            # Filter the galaxy data for the current frame's z-layer
+            current_frame_data = sim['pos'][(sim['pos'][:, 2] >= z_min) & (sim['pos'][:, 2] < z_max)]
 
-           # Checking if there is data in the current frame's slice
+            # Checking if there is data in the current frame's slice
             if len(current_frame_data) == 0:
                 # No data in this slice, display a placeholder message
                 ax.clear()
@@ -132,21 +133,21 @@ def z_span(sim, qty="rho", width=16, z_shift=0.01, z_max=0.25, z_rend=True, vmin
                 ax.set_xlim(-1 * width / 2, width / 2)
                 ax.set_ylim(-1 * width / 2, width / 2)
                 return ax
-                   
+
             # Plotting the Next Frame
             galaxy.remove()  # Clear the imshow artist to avoid overlapping images
             galaxy = pyn.plot.sph.image(sim, width=width, qty=qty, vmin=vmin, vmax=vmax, cmap=cmap, subplot=ax, ret_im=True)
 
-           # Converting the current frame image into a NumPy array for pixel inspection to do an image data check specifcally.
+            # Converting the current frame image into a NumPy array for pixel inspection to do an image data check specifcally.
             img_data = galaxy.get_array()
 
             # Checking for empty elements in the current slice (e.g., NaN or zero values)
             # If you want to skip rendering specific empty regions, we'll replace them with a placeholder value, which is what pynbody is doing from what I gather.
             # For example, setting NaN values to 0 and or skipping them visually.
-           # MAY BE MODIFIED FURTHER
+            # MAY BE MODIFIED FURTHER
             empty_mask = np.isnan(img_data) | (img_data == 0) # Identifies NaN and 0 pixels via a bit wise OR
             if np.any(empty_mask):
-                       
+
                 # Option 1: Replace empty values with some default (like 0)
                 img_data[empty_mask] = 0  # Pretty sure this is what pynbody does. This may break everything. Test with caution.
 
@@ -154,7 +155,7 @@ def z_span(sim, qty="rho", width=16, z_shift=0.01, z_max=0.25, z_rend=True, vmin
 
                 # Update the plot with modified data
                 galaxy.set_array(img_data)
-                   
+
             # Updating plotText
             z += z_shift
             ptext.set_text(f'z = {z:.3f} kpc')
