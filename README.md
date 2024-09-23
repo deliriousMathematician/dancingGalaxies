@@ -1,6 +1,2 @@
-# dancingGalaxies kBranch
-Mainly working on the null space element output 
-
-Also started on BEHEMOTH (what the acronym represents is also a work in progress)
-
--K
+# mBranch, kBranch Merger
+Dear God, please dont let me fuck this up. 

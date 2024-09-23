@@ -1,6 +1,6 @@
 # To Do:
-#   - Adjust starting zPos [see test.py]
 #   - Figure out what to do with nullspace [ex: when plotting star age but no stars exist in the region]
+#   - zSpan Render but Abs (ie averages -ve and +ve values)
 #   - ...
 
 # Bug Fixes:
@@ -15,6 +15,7 @@
 #   - Automatically determine vmin and vmax unless specified otherwise
 #   - Allow custom Fig size to be chosen
 #   - Allow the position of the pText to be changed
+#   - Adjust starting zPos
 #   - ...
 
 # ----------------------------------------------------------------------------------------------------------------------
