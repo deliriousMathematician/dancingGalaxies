@@ -43,7 +43,7 @@ ani = z_span(h.s, qty="age", z_shift=0.001, z_max=0.1, vmin=0.1, vmax=10, qtytit
              title='Star Age at various z', ptext_pos=(0.05, 0.05))
 
 # Specifying Required Paths
-ffmpeg_path = "C:\\Users\\Michael\\Documents\\python\\ffmpeg\\bin\\ffmpeg.exe"
+ffmpeg_path = "C:\\Users\\micha\\Documents\\python\\ffmpeg\\bin\\ffmpeg.exe"
 write_path = "animations\\Example1.mp4"
 
 # Saving with ffmpeg

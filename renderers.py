@@ -2,6 +2,38 @@
 import pynbody as pyn
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
+import numpy as np
+
+def chunk_check (data):
+    # Checking if the supplied data chunk (be it the galactic dataset of a slice of) is empty (e.g., no stars or gas in the region) 
+    # (For the extreme case of total absence of data.)
+    if len(data) == 0:
+        print(f"No data available for selected quantity in the selected region.")
+        plt.figure()
+        plt.text(0.5, 0.5, 'No data in this region', horizontalalignment='center', verticalalignment='center', fontsize=12)
+        plt.xlim(0, 1)
+        plt.ylim(0, 1)
+        plt.show()
+        return None  
+
+def bit_check (galaxy): 
+    # Converting the current frame image into a NumPy array for pixel inspection to do an image data check specifcally.
+    img_data = galaxy.get_array()
+
+    # Checking for empty elements in the current slice (e.g., NaN or zero values)
+    # If you want to skip rendering specific empty regions, we'll replace them with a placeholder value, which is what pynbody is doing from what I gather.
+    # For example, setting NaN values to 0 and or skipping them visually.
+    # MAY BE MODIFIED FURTHER
+    empty_mask = np.isnan(img_data) | (img_data == 0) # Identifies NaN and 0 pixels via a bit wise OR
+    if np.any(empty_mask):
+
+        # Option 1: Replace empty values with some default (like 0)
+        img_data[empty_mask] = 0  # Pretty sure this is what pynbody does. This may break everything. Test with caution.
+
+        # Option 2: Skip rendering those elements (no action needed, just handle it visually). Again, I don't know if this does much.
+
+        # Update the plot with modified data
+        galaxy.set_array(img_data)
 
 def z_span(sim, qty="rho", width=16, z_start=0, z_shift=0.01, z_max=0.25, z_rend=True, vmin=None, vmax=None, qtytitle=None,
            show_cbar=True, cmap=plt.cm.turbo, title=None, interval=250, figsize=None, ptext_pos=(0.65, 0.05), **kwargs):
@@ -52,6 +84,10 @@ def z_span(sim, qty="rho", width=16, z_start=0, z_shift=0.01, z_max=0.25, z_rend
 
     **Returns:** Animation Object
     """
+
+
+    # Checking if the dataset is empty in of itself (e.g., no stars or gas in the region) 
+    chunk_check (sim[qty])
 
     # Calculating the number of frames dynamically
     frames = int((z_max - z_start) / z_shift) + 1  # +1 to account for frame 0
@@ -105,17 +141,31 @@ def z_span(sim, qty="rho", width=16, z_start=0, z_shift=0.01, z_max=0.25, z_rend
 
     # Defining Update Function
     def update(frame):
+               
         nonlocal galaxy, z
+               
         if frame == 0:  # if initial frame do not shift_z
             return galaxy
         else:
             # shifting z-position of all particles
             sim['pos'][:, 2] -= z_shift
 
-            # Plotting Next Frame
+            # Define the z-range for this specific frame
+            z_min = z - z_shift / 2
+            z_max = z + z_shift / 2
+
+            # Filter the galaxy data for the current frame's z-layer
+            current_frame_data = sim['pos'][(sim['pos'][:, 2] >= z_min) & (sim['pos'][:, 2] < z_max)]
+
+            # Checking if there is data in the current frame's slice
+            chunk_check (current_frame_data)
+
+            # Plotting the Next Frame
             galaxy.remove()  # Clear the imshow artist to avoid overlapping images
             galaxy = pyn.plot.sph.image(sim, width=width, qty=qty, vmin=vmin, vmax=vmax, cmap=cmap, subplot=ax,
                                         ret_im=True)
+
+            bit_check (galaxy)
 
             # Updating plotText
             z += z_shift
