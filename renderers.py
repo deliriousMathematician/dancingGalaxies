@@ -2,8 +2,7 @@
 import pynbody as pyn
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
-import numpy as np
-from checks import *
+from checks import chunk_check, bit_check
 
 def z_span(sim, qty="rho", width=16, z_start=0, z_shift=0.01, z_max=0.25, z_rend=True, vmin=None, vmax=None, qtytitle=None,
            show_cbar=True, cmap=plt.cm.turbo, title=None, interval=250, figsize=None, ptext_pos=(0.65, 0.05), **kwargs):
@@ -134,6 +133,7 @@ def z_span(sim, qty="rho", width=16, z_start=0, z_shift=0.01, z_max=0.25, z_rend
             galaxy = pyn.plot.sph.image(sim, width=width, qty=qty, vmin=vmin, vmax=vmax, cmap=cmap, subplot=ax,
                                         ret_im=True)
 
+            # Checking for individual NaN Elements
             bit_check(galaxy)
 
             # Updating plotText
