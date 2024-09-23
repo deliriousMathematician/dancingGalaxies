@@ -18,4 +18,7 @@
 16/09/24 - Created mBranch, structuring package and bug fixed -M
 
 18/09/24 - Branch
+
 19/09/24 - Project B.E.H.E.M.O.T.H. is a go (Balanced Evolution of Halos, Environments and Massive Objects: Tracking History) 
+
+23/09/24 - merged kBranch and mBranch into km-Branch
