@@ -149,7 +149,7 @@ def z_span(sim, qty="rho", width=16, z_shift=0.01, z_max=0.25, z_rend=True, vmin
             current_frame_data = sim['pos'][(sim['pos'][:, 2] >= z_min) & (sim['pos'][:, 2] < z_max)]
 
             # Checking if there is data in the current frame's slice
-           chunk_check (current_frame_data)
+            chunk_check (current_frame_data)
 
             # Plotting the Next Frame
             galaxy.remove()  # Clear the imshow artist to avoid overlapping images
