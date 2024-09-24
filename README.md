@@ -18,4 +18,7 @@
 16/09/24 - Created mBranch, structuring package and bug fixed -M
 
 18/09/24 - Branch
+
 19/09/24 - Project B.E.H.E.M.O.T.H. is a go (Balanced Evolution of Halos, Environments and Massive Objects: Tracking History) 
+
+24/09/24 - Created Misc Folder to Store to Archive previous beta versions in order to better merge km-Branch with main. Created user.py containing a compilation of user interface related code which can be adapted in future to create gui.
