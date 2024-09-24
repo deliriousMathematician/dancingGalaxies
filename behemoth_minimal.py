@@ -92,7 +92,8 @@ def save_frames(snap_dir, output_dir='frames', num_snaps=50, qty="rho", width=50
             plot_all_components(snapshot, ax, overlay_vel)
             
         elif stars:
-            plot_stars_render(snapshot, ax, qty=qty, width=width, vmin=vmin, vmax=vmax)
+            plot_star_render(snapshot, ax, qty=qty, width=width, vmin=vmin, vmax=vmax)
+            
         else:
             plot_gas_sph(snapshot, ax, qty=qty, width=width, vmin=vmin, vmax=vmax)
 
