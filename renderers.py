@@ -1,4 +1,5 @@
 # imports
+import gc
 import pynbody as pyn
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
@@ -144,5 +145,178 @@ def z_span(sim, qty="rho", width=16, z_start=0, z_shift=0.01, z_max=0.25, z_rend
 
     # Initializing the animation
     ani = animation.FuncAnimation(fig, func=update, frames=frames, interval=interval, **kwargs)
+
+    return ani
+
+
+def t_span_sph(snap_dir, snap_name, base_ext_num, num_snaps, qty="rho", width=16, vmin=None, vmax=None, show_cbar=True,
+               qtytitle=None, title=None, cmap=plt.cm.turbo, figsize=None, interval=250):
+    """
+
+    Animate SPH images of numerous snapshots as they vary in time.
+
+    **Keyword arguments:**
+
+    *snap_dir* :
+
+    *snap_name* :
+
+    *base_ext_num* :
+
+    *num_snaps* :
+
+    *qty* (rho):
+
+    *width* (16 units):
+
+    *vmin* (None):
+
+    *vmax* (None):
+
+    *show_cbar* (True):
+
+    *qtytitle* (None):
+
+    *title* (None):
+
+    *cmap* (plt.cm.turbo):
+
+    *figsize* (None):
+
+    *interval* (250 ms):
+
+    **Returns:** Animation Object
+    """
+
+    # Creating Figure and Axes
+    if figsize is None:
+        fig, ax = plt.subplots()
+    else:
+        fig, ax = plt.subplots(figsize=figsize)
+
+    # Initializing Starting Frame
+    init_snap = pyn.load(f"{snap_dir}/{snap_name}.{int(base_ext_num):05d}")
+    init_snap.physical_units()
+
+    pyn.analysis.angmom.faceon(init_snap)
+
+    galaxy = pyn.plot.sph.image(init_snap.g, width=width, qty=qty, vmin=vmin, vmax=vmax, cmap=cmap, subplot=ax, ret_im=True)
+
+    # Setting constant vmin/vmax values to be used for animation
+    if (vmin is None) or (vmax is None):
+        vmin, vmax = galaxy.get_clim()
+
+    # Customizing Axes
+
+    # Colorbar
+    if show_cbar:
+        if qtytitle is None:
+            cbar = fig.colorbar(galaxy, ax=ax, label=qty)
+        else:
+            cbar = fig.colorbar(galaxy, ax=ax, label=qtytitle)
+
+    # Title
+    if title is not None:
+        axtitle = ax.set_title(title)
+
+    # xyLabels
+    xlabel = ax.set_xlabel(f"x/{init_snap['pos'].units}")
+    ylabel = ax.set_ylabel(f"y/{init_snap['pos'].units}")
+
+    del init_snap
+    gc.collect()    # Freeing Memory
+
+    # Defining Update Function
+    def update(frame):
+
+        nonlocal galaxy
+
+        if frame == 0:  # if initial frame do not remove galaxy
+            return galaxy
+
+        else:
+            galaxy.remove()     # Clear the imshow artist to avoid overlapping images
+
+            ext_num = int(base_ext_num) + frame     # Extension Number of Current Snap
+
+            current_snap = pyn.load(f"{snap_dir}/{snap_name}.{ext_num:05d}")    # Loading Current Snap
+            current_snap.physical_units()   # Converting to Physical Units
+
+            pyn.analysis.angmom.faceon(current_snap)    # Aligning Current Snap [To be made customizable]
+
+            galaxy = pyn.plot.sph.image(current_snap.g, width=width, qty=qty, vmin=vmin, vmax=vmax, cmap=cmap, subplot=ax, ret_im=True)
+
+            del current_snap    # Freeing Memory
+            gc.collect()    # Forcing Garbage Collection
+
+            return galaxy
+
+    ani = animation.FuncAnimation(fig, update, frames=num_snaps, interval=interval)
+
+    return ani
+
+
+def t_span_stars(snap_dir, snap_name, base_ext_num, num_snaps, width=16, with_dust=False, interval=250):
+    """
+
+    Animate star renders of numerous snapshots as they vary in time.
+
+    **Keyword arguments:**
+
+    *snap_dir* :
+
+    *snap_name* :
+
+    *base_ext_num* :
+
+    *num_snaps* :
+
+    *width* (16 units):
+
+    *with_dust* (False):
+
+    *interval* (250 ms):
+
+    **Returns:** Animation Object
+    """
+
+    # Creating Figure
+    fig = plt.figure()
+
+    # Initializing Starting Frame
+    init_snap = pyn.load(f"{snap_dir}/{snap_name}.{int(base_ext_num):05d}")
+    init_snap.physical_units()
+
+    pyn.analysis.angmom.faceon(init_snap)
+
+    galaxy = pyn.plot.stars.render(init_snap, width=width, ret_im=True, with_dust=with_dust)
+
+    del init_snap   # Freeing Memory
+    gc.collect()    # Forcing Garbage Collection
+
+    # Defining Update Function
+    def update(frame):
+
+        nonlocal galaxy
+
+        if frame == 0:  # if initial frame do not remove galaxy
+            return galaxy
+
+        else:
+            ext_num = int(base_ext_num) + frame     # Extension Number of Current Snap
+
+            current_snap = pyn.load(f"{snap_dir}/{snap_name}.{ext_num:05d}")    # Loading Current Snap
+            current_snap.physical_units()   # Converting to Physical Units
+
+            pyn.analysis.angmom.faceon(current_snap)    # Aligning Current Snap [To be made customizable]
+
+            galaxy = pyn.plot.stars.render(current_snap, width=width, ret_im=True, with_dust=with_dust)
+
+            del current_snap    # Freeing Memory
+            gc.collect()    # Forcing Garbage Collection
+
+            return galaxy
+
+    ani = animation.FuncAnimation(fig, update, frames=num_snaps, interval=interval)
 
     return ani

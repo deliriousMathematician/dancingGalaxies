@@ -1,6 +1,20 @@
 # To Do:
-#   - Figure out what to do with nullspace [ex: when plotting star age but no stars exist in the region]
+#   z_span:
+#   - Implement save_frames for z_span
 #   - zSpan Render but Abs (ie averages -ve and +ve values)
+#   - ...
+#
+#   t_span_sph:
+#   - Make Alignment Method Customizable
+#   - Allow user to choose what components to animate (s, g, d)
+#   - ptext
+#   - Add Save_Frames Functionality
+#   - prog_bar
+#   - ...
+#
+#   t_span_stars:
+#   - Add Customization Option to Axes
+#   - Same stuff as in t_span_sph
 #   - ...
 
 # Bug Fixes:
@@ -19,32 +33,3 @@
 #   - ...
 
 # ----------------------------------------------------------------------------------------------------------------------
-
-# An example as to how one would use the dancingGalaxies Package
-
-import pynbody as pyn
-from renderers import z_span
-from writers import save_ffmpeg
-
-# Loading Simulation
-simu = "simFiles/run708main.01000"
-h = pyn.load(simu)
-
-# Converting units and aligning face-on
-h.physical_units()
-h.s['age'].convert_units('Gyr')
-pyn.analysis.angmom.faceon(h)
-
-# Example 1
-ani = z_span(h.g, qty="rho", z_shift=0.01, z_max=0.25, title="Rho at various z")
-
-# Example 2
-# ani = z_span(h.s, qty="age", z_shift=0.001, z_max=0.1, vmin=0.1, vmax=10, qtytitle="age (Gyr)",
-#              title='Star Age at various z', ptext_pos=(0.05, 0.05))
-
-# Specifying Required Paths
-ffmpeg_path = "C:\\Users\\micha\\Documents\\python\\ffmpeg\\bin\\ffmpeg.exe"
-write_path = "animations\\Example1.mp4"
-
-# Saving with ffmpeg
-save_ffmpeg(ani, ffmpeg_path, write_path, fps=5)
