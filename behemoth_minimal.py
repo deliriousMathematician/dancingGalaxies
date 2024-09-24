@@ -33,7 +33,7 @@ def star_ages (sim):
 def plot_star_render(snapshot, ax, qty="rho", width=50, vmin=None, vmax=None, cmap='turbo'):
     
     ax.clear()
-    galaxy = pb.plot.stars.render(snapshot.s, qty=qty, width=width, vmin=vmin, vmax=vmax, cmap=cmap, subplot=ax, ret_im=True)
+    galaxy = pyn.plot.stars.render(snapshot.s, qty=qty, width=width, vmin=vmin, vmax=vmax, cmap=cmap, subplot=ax, ret_im=True)
     
     return galaxy
 
