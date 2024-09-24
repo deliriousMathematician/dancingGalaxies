@@ -125,7 +125,7 @@ def main(snap_dir, ffmpeg_path, num_snaps=50, output_dir='frames', create_video=
         
         if z_span_mode:
             
-            # sim = pyn.load(f'{snap_dir}/snapshot_000')
+            sim = pyn.load(f'{snap_dir}/snapshot_000')
             # ani = z_span(sim.g, qty="rho", z_shift=0.001, title="Rho at various z")
             
             # save_ffmpeg(ani, ffmpeg_path, f'{output_dir}/z_span.mp4', fps=25)
