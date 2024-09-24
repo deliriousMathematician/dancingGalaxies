@@ -75,7 +75,7 @@ def snap_loader(snap_dir, snap_number):
 
 # Saving the frames of the simulation (with a progress bar).
 
-def save_frames(snap_dir, output_dir='frames', num_snaps=50, qty="rho", width=50, vmin=None, vmax=None, overlay_vel=False, all_components=False, stars = True):
+def save_frames(snap_dir, output_dir='frames', num_snaps=50, qty="rho", width=50, vmin=None, vmax=None, overlay_vel=False, all_components=False, stars = False):
     
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
