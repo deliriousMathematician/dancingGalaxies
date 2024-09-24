@@ -23,3 +23,4 @@
 
 24/09/24 - Created Misc Folder to Store to Archive previous beta versions in order to better merge km-Branch with main. Created user.py containing a compilation of user interface related code which can be adapted in future to create gui.
 - Behmoth minimal done - KC
+- Added t_span_sph and t_span_stars to renderers. Still alot to improve and implement (including features which are in behemoth but not yet in t_span functions) but atleast its in a presentable format which runs seamlessly with z_span. Created an Examples Folder containing examples for both z_span and t_span functions. Cleared Sandbox (except for To-Do List). Updated Sandbox To-Do list for each individual function. - MH
