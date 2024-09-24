@@ -30,10 +30,10 @@ def star_ages (sim):
     
     return y_stars, i_stars, o_stars
 
-def plot_star_render(snapshot, ax, width=50, vmin=None, vmax=None, cmap='turbo'):
+def plot_star_render(snapshot, ax, width=50):
     
     ax.clear()
-    galaxy = pyn.plot.stars.render(snapshot.s, width=width, vmin=vmin, vmax=vmax, cmap=cmap, subplot=ax, ret_im=True)
+    galaxy = pyn.plot.stars.render(snapshot.s, width=width, axes=ax, ret_im=True)
     
     return galaxy
 
@@ -92,7 +92,7 @@ def save_frames(snap_dir, output_dir='frames', num_snaps=50, qty="rho", width=50
             plot_all_components(snapshot, ax, overlay_vel)
             
         elif stars:
-            plot_star_render(snapshot, ax, width=width, vmin=vmin, vmax=vmax)
+            plot_star_render(snapshot, ax, width=width)
             
         else:
             plot_gas_sph(snapshot, ax, qty=qty, width=width, vmin=vmin, vmax=vmax)
@@ -162,6 +162,6 @@ def main(snap_dir, ffmpeg_path, num_snaps=50, output_dir='frames', create_video=
 # Usage
 if __name__ == '__main__':
     
-    snapshot_directory = r'C:\Users\...\snapshots'
-    ffmpeg_dir = r"C:\Users\...\ffmpeg_folder\bin\ffmpeg.exe"
+    snapshot_directory = r'C:\Users\User\Desktop\BSc.M&P\Extra\Astro\DA_BEHEMOTH\snapshots'
+    ffmpeg_dir = r"C:\Users\User\Desktop\BSc.M&P\Extra\Astro\ffmpeg_folder\bin\ffmpeg.exe"
     main(snapshot_directory, ffmpeg_dir)
