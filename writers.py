@@ -9,18 +9,23 @@ def save_ffmpeg(ani, ffmpeg_path, write_path, fps=5, bitrate=-1, dpi=200, **kwar
 
     **Keyword arguments:**
 
-    *ani* : The animation object to be written to disk.
+    *ani* : Animation Object
+        The animation object to be written to disk.
 
-    *ffmpeg_path* : The path of the ffmpeg executable.
+    *ffmpeg_path* : string
+        The path of the ffmpeg executable.
 
-    *write_path* : Where the processed animation will be saved to.
+    *write_path* : string
+        Where the processed animation will be saved to.
 
-    *fps* (5):  Playback speed [Frames per second] of the animation.
+    *fps* : int (default: 5)
+        Playback speed [Frames per second] of the animation.
 
-    * bitrate* (-1): The bitrate of the saved animation.
-    Setting to -1 auto-determines optimal bitrate.
+    * bitrate* : int (default: -1)
+        The bitrate of the saved animation. Setting to -1 auto-determines optimal bitrate.
 
-    *dpi* (200): Dots per Inch.
+    *dpi* : int (default: 200)
+        Dots per Inch.
 
     **Returns:** None
     """

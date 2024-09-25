@@ -13,44 +13,55 @@ def z_span(sim, qty="rho", width=16, z_start=0, z_shift=0.01, z_max=0.25, z_rend
 
     **Keyword arguments:**
 
-    *sim* : The galaxy object containing the data to visualize.
+    *sim* : string
+        The galaxy object containing the data to visualize.
 
-    *qty* (rho): The name of the array to interpolate
+    *qty* : string (default: "rho")
+        The name of the array to interpolate.
 
-    *width* (16 units): The overall width and height of the plot.
-    Units are determined by ``sim['pos']``.
+    *width* : float (default: 16)
+        The overall width and height of the plot. Units are determined by ``sim['pos']``.
 
-    *z_start* (0): The starting z-position of the animation.
-    Units are determined by ``sim['pos']``.
+    *z_start* : float (default: 0)
+        The starting z-position of the animation. Units are determined by ``sim['pos']``.
 
-    *z_shift* (0.01 units): The amount to shift in the z-direction per frame.
-    Units are determined by ``sim['pos']``.
+    *z_shift* : float (default: 0.01)
+        The amount to shift in the z-direction per frame. Units are determined by ``sim['pos']``.
 
-    *z_max* (0.25 units): Maximum z-distance to cover in the animation.
-    Units are determined by ``sim['pos']``.
+    *z_max* : float (default: 0.25)
+        Maximum z-distance to cover in the animation. Units are determined by ``sim['pos']``.
 
-    *z_rend* (True): Whether the animation renders the current z-position text.
+    *z_rend* : bool (default: True)
+        Whether the animation renders the current z-position text.
 
-    *vmin* (None): Minimum of the visualization scale. 'None' will choose appropriate value automatically.
-    Units are determined by ``sim['qty']``.
+    *vmin* : float (default: None)
+        Minimum of the visualization scale. 'None' will choose appropriate value automatically.
+        Units are determined by ``sim['qty']``.
 
-    *vmax* (None): Maximum of the visualization scale. 'None' will choose appropriate value automatically.
-    Units are determined by ``sim['qty']``.
+    *vmax* : float (default: None)
+        Maximum of the visualization scale. 'None' will choose appropriate value automatically.
+        Units are determined by ``sim['qty']``.
 
-    *qtytitle* (None): Colorbar quantity title.
+    *qtytitle* : string (default: None)
+        Colorbar quantity title.
 
-    *show_cbar* (True): Whether to plot the colorbar.
+    *show_cbar* : bool (default: True)
+        Whether to plot the colorbar.
 
-    *cmap* (plt.cm.turbo): Colormap to be used.
+    *cmap* : matplotlib.cm (default: matplotlib.cm.turbo)
+        Colormap to be used.
 
-    *title* (None): Plot Title.
+    *title* : string (default: None)
+        Plot title.
 
-    *interval* (250 ms): Amount of time between the drawing of frames.
-    Does not affect playback speed of animation.
+    *interval* : int (default: 250)
+        Amount of time (ms) between the drawing of frames. Does not affect playback speed of animation.
 
-    *figsize* (None): Size of the figure on which the plot is rendered. 'None' will choose appropriate value automatically.
+    *figsize* : tuple (default: None)
+        Size of the figure on which the plot is rendered. 'None' will choose appropriate value automatically.
 
-    *ptext_pos* (0.65, 0.05): Position of ptext in transAxes coords.
+    *ptext_pos* : tuple (default: (0.65, 0.05))
+        Position of ptext in transAxes coords.
 
     **Returns:** Animation Object
     """
@@ -150,40 +161,56 @@ def z_span(sim, qty="rho", width=16, z_start=0, z_shift=0.01, z_max=0.25, z_rend
 
 
 def t_span_sph(snap_dir, snap_name, base_ext_num, num_snaps, qty="rho", width=16, vmin=None, vmax=None, show_cbar=True,
-               qtytitle=None, title=None, cmap=plt.cm.turbo, figsize=None, interval=250):
+               qtytitle=None, title=None, cmap=plt.cm.turbo, figsize=None, interval=250, **kwargs):
     """
 
     Animate SPH images of numerous snapshots as they vary in time.
 
     **Keyword arguments:**
 
-    *snap_dir* :
+    *snap_dir* : string
+        The path to the directory containing the snapshots.
 
-    *snap_name* :
+    *snap_name* : string
+        The generic file name of the snapshots in the snap_dir.
 
-    *base_ext_num* :
+    *base_ext_num* : string
+        The file extension number of the first frame.
 
-    *num_snaps* :
+    *num_snaps* : int
+        The number of snapshots to be animated.
 
-    *qty* (rho):
+    *qty* : string (default: "rho")
+        The name of the array to interpolate
 
-    *width* (16 units):
+    *width* : float (default: 16)
+        The overall width and height of the plot. Units are determined by ``snap['pos']``.
 
-    *vmin* (None):
+    *vmin* : float (default: None)
+        Minimum of the visualization scale. 'None' will choose appropriate value automatically.
+        Units are determined by ``snap['qty']``.
 
-    *vmax* (None):
+    *vmax* : float (default: None)
+        Maximum of the visualization scale. 'None' will choose appropriate value automatically.
+        Units are determined by ``snap['qty']``.
 
-    *show_cbar* (True):
+    *show_cbar* : bool (default: True)
+        Whether to plot the colorbar.
 
-    *qtytitle* (None):
+    *qtytitle* : string (default: None)
+        Colorbar quantity title.
 
-    *title* (None):
+    *title* : string (default: None)
+        Plot title.
 
-    *cmap* (plt.cm.turbo):
+    *cmap* : matplotlib.cm (default: matplotlib.cm.turbo):
+        Colormap to be used.
 
-    *figsize* (None):
+    *figsize* : tuple (default: None)
+        Size of the figure on which the plot is rendered. 'None' will choose appropriate value automatically.
 
-    *interval* (250 ms):
+    *interval* : int (default: 250):
+        Amount of time (ms) between the drawing of frames. Does not affect playback speed of animation.
 
     **Returns:** Animation Object
     """
@@ -251,31 +278,38 @@ def t_span_sph(snap_dir, snap_name, base_ext_num, num_snaps, qty="rho", width=16
 
             return galaxy
 
-    ani = animation.FuncAnimation(fig, update, frames=num_snaps, interval=interval)
+    ani = animation.FuncAnimation(fig, update, frames=num_snaps, interval=interval, **kwargs)
 
     return ani
 
 
-def t_span_stars(snap_dir, snap_name, base_ext_num, num_snaps, width=16, with_dust=False, interval=250):
+def t_span_stars(snap_dir, snap_name, base_ext_num, num_snaps, width=16, with_dust=False, interval=250, **kwargs):
     """
 
     Animate star renders of numerous snapshots as they vary in time.
 
     **Keyword arguments:**
 
-    *snap_dir* :
+    *snap_dir* : string
+        The path to the directory containing the snapshots.
 
-    *snap_name* :
+    *snap_name* : string
+        The generic file name of the snapshots in the snap_dir.
 
-    *base_ext_num* :
+    *base_ext_num* : string
+        The file extension number of the first frame.
 
-    *num_snaps* :
+    *num_snaps* : int
+        The number of snapshots to be animated.
 
-    *width* (16 units):
+    *width* : float (default: 16)
+        The overall width and height of the plot. Units are determined by ``snap['pos']``.
 
-    *with_dust* (False):
+    *with_dust* : bool (default: False)
+        If True, the image is rendered with a simple dust screening model based on Calzetti's law.
 
-    *interval* (250 ms):
+    *interval* : int (default: 250)
+        Amount of time (ms) between the drawing of frames. Does not affect playback speed of animation.
 
     **Returns:** Animation Object
     """
@@ -317,6 +351,6 @@ def t_span_stars(snap_dir, snap_name, base_ext_num, num_snaps, width=16, with_du
 
             return galaxy
 
-    ani = animation.FuncAnimation(fig, update, frames=num_snaps, interval=interval)
+    ani = animation.FuncAnimation(fig, update, frames=num_snaps, interval=interval, **kwargs)
 
     return ani
