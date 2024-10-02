@@ -27,7 +27,7 @@ It is recommended that you download the *content* directory - within which all r
 It is important that both these files be imported into your code. The former, as the name implies, deals with the rendering of animations, whereas the latter writes said renders to disk. A detailed description of each function's arguments and properties can be found commented within their respective files. 
 
 #### 4. Using dancing_galaxies:
-Each function in renderers.py works slightly differently; as such, it is highly recommended that you view the *Examples* directory, and use the relevent example file as a template for your use-case. 
+Each function in renderers.py works slightly differently; as such, it is highly recommended that you view the *examples* directory, and use the relevent example file as a template for your use-case. 
 
 ---
 
