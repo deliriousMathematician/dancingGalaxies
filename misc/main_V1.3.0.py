@@ -294,7 +294,7 @@ ani = animate_galaxy(h, z_shift, z, ax, galaxy, width, vmin, vmax, cmap, pText, 
 # 'C:\\Users\\User\\...\\ffmpeg_folder\\bin\\ffmpeg.exe'
 
 ffmpeg_path = input("\nEnter the ffmpeg file path: ") # User input
-# ffmpeg_path = "C:\\Users\\Michael\\Documents\\python\\ffmpeg\\bin\\ffmpeg.exe"
+# ffmpeg_path example = "C:\\Users\\Michael\\Documents\\python\\ffmpeg\\bin\\ffmpeg.exe"
 if not os.path.exists(ffmpeg_path):
     raise FileNotFoundError("FFmpeg not found. Check your ffmpeg installation path.")
 
