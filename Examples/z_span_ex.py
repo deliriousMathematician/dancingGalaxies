@@ -1,6 +1,6 @@
 import pynbody as pyn
-from renderers import z_span
-from writers import save_ffmpeg
+from content.renderers import z_span
+from content.writers import save_ffmpeg
 
 # Loading Simulation
 simu = "../simFiles/run708main.01000"

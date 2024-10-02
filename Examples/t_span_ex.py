@@ -1,6 +1,5 @@
-import pynbody as pyn
-from renderers import t_span_sph, t_span_stars
-from writers import save_ffmpeg
+from content.renderers import t_span_sph
+from content.writers import save_ffmpeg
 
 # Example 1
 ani = t_span_sph(snap_dir="../4movie", snap_name="run670hTDiffMetalCoolF10HRHC", base_ext_num="01700", num_snaps=51,

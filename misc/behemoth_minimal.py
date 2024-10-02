@@ -12,7 +12,6 @@ import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from matplotlib.animation import FuncAnimation
-import numpy as np
 from tqdm import tqdm
 import os
 import gc  # garbage collection
