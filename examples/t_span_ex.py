@@ -10,7 +10,7 @@ ani = t_span_sph(snap_dir="../4movie", snap_name="run670hTDiffMetalCoolF10HRHC",
 #                    width=30)
 
 # Specifying ffmpeg related paths
-ffmpeg_path = "C:\\Users\\Michael\\Documents\\python\\ffmpeg\\bin\\ffmpeg.exe"
+ffmpeg_path = "C:\\Users\\...\\ffmpeg\\bin\\ffmpeg.exe"
 write_path = "../animations/tspan_sph.mp4"
 
 # Saving animation with ffmpeg
