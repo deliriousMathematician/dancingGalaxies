@@ -161,6 +161,6 @@ def main(snap_dir, ffmpeg_path, num_snaps=50, output_dir='frames', create_video=
 # Usage
 if __name__ == '__main__':
     
-    snapshot_directory = r'C:\Users\User\Desktop\BSc.M&P\Extra\Astro\DA_BEHEMOTH\snapshots'
-    ffmpeg_dir = r"C:\Users\User\Desktop\BSc.M&P\Extra\Astro\ffmpeg_folder\bin\ffmpeg.exe"
+    snapshot_directory = r'C:\Users\User\...\snapshots'
+    ffmpeg_dir = r"C:\Users\User...\ffmpeg_folder\bin\ffmpeg.exe"
     main(snapshot_directory, ffmpeg_dir)
