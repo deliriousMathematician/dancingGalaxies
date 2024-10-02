@@ -27,7 +27,7 @@ It is recommended that you download the ``content`` directory - within which all
 It is important that both these files be imported into your code. The former, as the name implies, deals with the rendering of animations, whereas the latter writes said renders to disk. A detailed description of each function's arguments and properties can be found commented within their respective files. 
 
 #### 4. Using dancing_galaxies:
-Each function in renderers.py works slightly differently; as such, it is highly recommended that you view the ``examples`` directory, and use the relevant example file as a template for your use-case. Behemoth minimal may serve as a good introduction to understanding the basic logic thereof. (Note that that file does have some untested experimental functions that are not required.)
+Each function in renderers.py works slightly differently; as such, it is highly recommended that you view the ``examples`` and ``misc`` directories, and use the relevant example files as a template for your use-case. Behemoth Minimal specifically may serve as a good introduction to understanding the basic logic in creating animations from multiple simulation files. (Note that it does have some untested experimental functions that are not required.)
 
 ---
 
