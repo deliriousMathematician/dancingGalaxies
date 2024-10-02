@@ -1,9 +1,8 @@
-# UI related functions....
+# UI-related functions...
 #
 # To Do:
 #   - Update with new function arguments (see renderers.py and writers.py)
-#   - ...
-#
+#   
 #   --------------------------------------------------------------------------------------------------------------------
 
 def get_user_inputs():
