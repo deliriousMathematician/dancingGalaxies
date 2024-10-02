@@ -1,9 +1,9 @@
 # Project BEHEMOTH V2 - Balancing the Evolution of Halos, Environments and Massive Objects: Tracking History
 # karl c
-# A reduced minimalistic version of the basic functionality we may need.
+# A reduced minimalistic version of the basic functionality we may need. This is one whole Python program that can do the basic loading, rendering, animation and saving in one go.
 # What remains to be done is to integrate it with the other code in some ways and refine the output movie whichever way is deemed best.
-# There do remain some unused remanants of previous code versions from other py files in this code.
-# I will place some other new functions in a different file soon.
+# There do remain some unused remnants of previous code versions from other py files in this code.
+# Some other new functions will be placed in a different file soon.
 
 # Imports
 
