@@ -3,7 +3,7 @@
 ##### Authors: Karl Caruana & Michael Hall
 ##### Last Updated: 02/10/2024
 
-This project is based on the pynbody python package and animations are rendered by stitching snapshots together using ``matplotlib.animation.FuncAnimation``.
+This project is based on the pynbody python package and animations are rendered by stitching snapshots together using ``matplotlib.animation.FuncAnimation``. Please note that various elements, both of the repository and the files within are still being actively improved. For any suggestions, queries or comments you may have please refer to Viewers.md.
 
 ### **User Guide:**
 
