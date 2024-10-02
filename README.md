@@ -16,18 +16,18 @@ Ensure your python interpreter has these packages installed:
 * [matplotlib](https://github.com/matplotlib/matplotlib)
 * [numpy](https://github.com/numpy/numpy)
 
-While not being necessary, some files in *misc* also require:
+While not being necessary, some files in ``misc`` also require:
 * [tqdm](https://github.com/tqdm/tqdm)
 
 #### 3. Importing dancing_galaxies Functions:
-It is recommended that you download the *content* directory - within which all relevent functions related to the rendering and writing of galactic animations are located. Functions of particular interest can be found in:
+It is recommended that you download the ``content`` directory - within which all relevent functions related to the rendering and writing of galactic animations are located. Functions of particular interest can be found in:
 * ``renderers.py``
 * ``writers.py``
   
 It is important that both these files be imported into your code. The former, as the name implies, deals with the rendering of animations, whereas the latter writes said renders to disk. A detailed description of each function's arguments and properties can be found commented within their respective files. 
 
 #### 4. Using dancing_galaxies:
-Each function in renderers.py works slightly differently; as such, it is highly recommended that you view the *examples* directory, and use the relevent example file as a template for your use-case. 
+Each function in renderers.py works slightly differently; as such, it is highly recommended that you view the ``examples`` directory, and use the relevent example file as a template for your use-case. 
 
 ---
 
