@@ -1,3 +1,5 @@
+# These are some data check functions for the supplied galactic simulations. Generally reformats and encapsulates what pynbody should do with nullities.
+
 import numpy as np
 import matplotlib.pyplot as plt
 
